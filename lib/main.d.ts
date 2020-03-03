@@ -30,6 +30,8 @@ declare namespace openwhisk {
         ignore_certs?: boolean;
         apigw_token?: string;
         apigw_space_guid?: string;
+        retry_num?: number;
+        retry_wait?: number;
     }
 
     // Client

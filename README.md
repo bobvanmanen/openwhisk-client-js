@@ -105,6 +105,8 @@ _Client constructor supports the following mandatory parameters:_
 - **key**. Client key to use when connecting to the `apihost` (if `nginx_ssl_verify_client` is turned on in your apihost)
 - **proxy.** HTTP(s) URI for proxy service to forwards requests through. Uses Needle's [built-in proxy support](https://github.com/tomas/needle#request-options).
 - **agent.** Provide custom [http.Agent](https://nodejs.org/api/http.html#http_class_http_agent) implementation.
+- **retry_num** Number of times to retry requests when on 429 failure, defaults to 1
+- **retry_wait** Initial wait time between retry requests, doubles after every retry, defaults to 100ms
 
 
 ### environment variables
