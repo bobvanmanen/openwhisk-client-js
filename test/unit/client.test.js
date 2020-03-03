@@ -34,6 +34,21 @@ test('should handle http request errors', async t => {
   t.assert(error.message.includes('simulated error'))
 })
 
+test('should handle http 429 retry', async t => {
+  const client = new Client({ api_key: 'secret', apihost: 'test_host', proxy: '', retry_num: 2 })
+  const METHOD = 'GET'
+  const PATH = '/some/path'
+
+  nock('https://test_host')
+    .get(PATH)
+    .reply(429, 'overload error')
+    .get(PATH)
+    .reply(200, { msg: 'success' })
+
+  const response = await client.request(METHOD, PATH, {})
+  t.deepEqual({ msg: 'success' }, response)
+})
+
 test('should use default constructor options', t => {
   const client = new Client({ api_key: 'aaa', apihost: 'my_host' })
   t.false(client.options.ignoreCerts)
